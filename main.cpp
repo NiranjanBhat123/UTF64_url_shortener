@@ -53,8 +53,8 @@ std::string base64_encode(unsigned char const *bytes_to_encode, unsigned int in_
 }
 
 string encodeUrl(const string &originalUrl) {
-    // Extract substring from original URL
-    size_t startPos = originalUrl.find("://") + 3; // Start after "://"
+    
+    size_t startPos = originalUrl.find("://") + 3; 
     size_t endPos = originalUrl.find(".com");
 
     if (endPos == string::npos) {
@@ -63,10 +63,10 @@ string encodeUrl(const string &originalUrl) {
 
     string subUrl = originalUrl.substr(startPos, endPos - startPos);
 
-    // Convert substring to lowercase
+   
     transform(subUrl.begin(), subUrl.end(), subUrl.begin(), ::tolower);
 
-    // Encode substring to base64
+    
     stringstream ss;
     ss << base64_encode(reinterpret_cast<const unsigned char *>(subUrl.c_str()), subUrl.length());
 
@@ -163,7 +163,7 @@ int main() {
 
     cout << "URL shortened successfully: " << shortenedUrl << endl;
 
-    // Retrieve original URL from shortened URL
+    
     string sqlSelect = "SELECT original_url FROM url_shortener WHERE shortened_url = '" + shortenedUrl + "';";
     if (mysql_query(conn, sqlSelect.c_str())) {
         cerr << "SQL error: " << mysql_error(conn) << endl;
